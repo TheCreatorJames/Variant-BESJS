@@ -1,0 +1,32 @@
+<script type="text/javascript" src="bes.js"></script>
+<script>
+
+
+
+var mode = prompt("(E)ncrypt or (D)ecrypt?");
+
+if(mode == "E")
+{
+
+var word = prompt("Phrase to Encrypt?");
+var pass= prompt("Password to encrypt with?");
+var size = 10 * 1024;
+var extra = "Salty";
+
+document.write(new BasylEncryptor().encrypt(word, pass, size, extra));
+
+
+}
+else if(mode == "D") 	 //yes, I could make it 'shorter' by creating a variable or ternary operator to switch out encrypt with decrypt
+						//or even use a .replace, but this is more readable for an example.
+{
+	var word = prompt("Phrase to Decrypt?"); 
+	var pass = prompt("Password to decrypt with?");
+	var size = 10 * 1024;
+	var extra = "Salty";
+
+	document.write(new BasylEncryptor().decrypt(word, pass, size, extra));
+}
+
+
+</script>
