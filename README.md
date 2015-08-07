@@ -1,5 +1,5 @@
 # Variant-BESJS
-Variant of BES for lightweight javascript encryption. Not compatible with standard BES.
+This is a lightweight encryption algorithm for the web browser written in JavaScript. It is based off of BES but has a few features added to allow it to be faster and smaller. It will encrypt strings in a shuffling cipher, and give you a string to decrypt.
 
 ### Why a variant?
 To make it lightweight and efficient. You usually aren't encrypting massive amounts of data in JavaScript, so I thought I'd make it more... slim.
