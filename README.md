@@ -31,7 +31,7 @@ var encrypted_arr = encryption.encrypt([0, 1, 2, 3], pass, size, extra);
 var encrypted_string = encryption.encryptString("Pineapples", pass, size, extra);
 
 //Decrypt the encrypted Array to an Array
-var decrypted_arr = encryption.decrypt(encrypted_arr, pass, size, extra); //[0, 1, 2, 3]
+var decrypted_arr = encryption.decrypt(encrypted_arr, pass, size, extra); // [0, 1, 2, 3]
 
 //Decrypt Array to String
 var decrypted_string = encryption.decryptString(encrypted_string, pass, size, extra); // "Pineapples"
@@ -43,4 +43,4 @@ pass - what to encrypt/decrypt with.
 
 size - the size of the generation array. I recommend something above (10*1024). It can be any number you wish though.
 
-extra - A constant extra password to encrypt with. Just adds some extra entropic uniqueness to your generation scheme.
+extra - A constant extra password string to encrypt with. Usually something simple, like "Salty". Just adds some extra entropic uniqueness to your generation scheme.
