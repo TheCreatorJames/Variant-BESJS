@@ -1,4 +1,4 @@
-<script type="text/javascript" src="bes.js"></script>
+<script type="text/javascript" src="BES.min.js"></script>
 <script>
 
 
@@ -13,19 +13,20 @@ var pass= prompt("Password to encrypt with?");
 var size = 10 * 1024;
 var extra = "Salty";
 
-document.write(new BasylEncryptor().encrypt(word, pass, size, extra));
+document.write(new BasylEncryptor().encryptString(word, pass, size, extra));
 
 
 }
 else if(mode == "D") 	 //yes, I could make it 'shorter' by creating a variable or ternary operator to switch out encrypt with decrypt
-						//or even use a .replace, but this is more readable for an example.
+            //or even use a .replace, but this is more readable for an example.
 {
-	var word = prompt("Phrase to Decrypt?"); 
-	var pass = prompt("Password to decrypt with?");
-	var size = 10 * 1024;
-	var extra = "Salty";
+  var word = prompt("Phrase to Decrypt?");
+  var pass = prompt("Password to decrypt with?");
+  var size = 10 * 1024;
+  var extra = "Salty";
 
-	document.write(new BasylEncryptor().decrypt(word, pass, size, extra));
+  //insecure code, but this is an example of the encryption, not necessarily something to prevent injection.
+  document.write(new BasylEncryptor().decryptString(eval("[" +word + "]"), pass, size, extra));
 }
 
 
