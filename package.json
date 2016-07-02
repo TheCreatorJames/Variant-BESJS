@@ -1,0 +1,18 @@
+{
+  "name": "variant-besjs",
+  "version": "1.0.0",
+  "description": "Small lightweight custom encryption algorithm.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/TheCreatorJames/Variant-BESJS"
+  },
+  "keywords": [
+    "encryption"
+  ],
+  "author": "TheCreatorJames",
+  "license": "ISC"
+}
