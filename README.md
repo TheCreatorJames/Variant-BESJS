@@ -37,13 +37,28 @@ var decrypted_arr = encryption.decrypt(encrypted_arr, pass, size, extra); // [0,
 var decrypted_string = encryption.decryptString(encrypted_string, pass, size, extra); // "Pineapples"
 ```
 
-To decrypt, plug in the output from the encrypt method, and the other three variables must remain the same.
+To decrypt, use the output array from the encrypt method, the other three variables you used must remain the same. Please note that arrays that are passed in **must only** contain values between 0 and 255.
 
-pass - what to encrypt/decrypt with.
+pass - the password to encrypt/decrypt with.
 
 size - the size of the generation array. I recommend something above (10*1024). It can be any number you wish though.
 
 extra - A constant extra password string to encrypt with. Usually something simple, like "Salty". Just adds some extra entropic uniqueness to your generation scheme.
+
+
+#### UTF-16
+If you wish to use UTF-16 characters in your strings, you may pass in an extra boolean value to enable UTF-16 support.
+
+```js
+//Encrypt a String with UTF-16 Support.
+var encrypted_string = encryption.encryptString("Pineapples", pass, size, extra, true);
+
+//Decrypt Array to String with UTF-16 Support.
+var decrypted_string = encryption.decryptString(encrypted_string, pass, size, extra, true);  // "Pineapples"
+```
+
+This is set to false by default to save room.
+
 
 ### How to use this in Node.js
 
