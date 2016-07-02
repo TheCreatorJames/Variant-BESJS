@@ -236,3 +236,12 @@ function BasylEncryptor()
         return result;
     }
 }
+
+if(typeof(module) === "undefined" || typeof(module.exports) === "undefined")
+{
+
+}
+else
+{
+    module.exports = BasylEncryptor;
+}
