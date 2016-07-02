@@ -56,3 +56,9 @@ var encryption = new BasylEncryptor();
 ```
 
 The rest of the code will be the same as above.
+
+You may also alternatively place the "bes.js" or "bes.min.js" in the same folder, and load it in like so: 
+```js
+var BasylEncryptor = require("./bes.js");
+var encryption = new BasylEncryptor();
+```
