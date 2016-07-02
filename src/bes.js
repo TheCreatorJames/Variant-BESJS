@@ -60,16 +60,23 @@ function BasylEncryptor()
 
         pos = 0;
 
-        for (var t = 0; t < 10; t++)
+        cipherShuffle(10);
+
+        Recycle();
+    }
+
+
+    function cipherShuffle(times)
+    {
+        for (var t = 0; t < times; t++)
             for (var z = 0; z < 256; z++)
             {
                 EncryptRight(z);
                 EncryptLeft(z);
                 EncryptRight(salt[z % saltLength]);
             }
-
-        Recycle();
     }
+
 
     function siftForward()
     {
@@ -152,6 +159,7 @@ function BasylEncryptor()
         randSwap();
         siftBackward();
 
+        cipherShuffle(2);
         pos = 0;
     }
 
