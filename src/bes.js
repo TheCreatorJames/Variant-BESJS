@@ -133,6 +133,7 @@ function BasylEncryptor()
 
     function EncryptRight(z)
     {
+        z = Math.abs(z) & 255;
         var res = ciphA[z];
         swapper(z);
         return res;
@@ -140,6 +141,7 @@ function BasylEncryptor()
 
     function EncryptLeft(z)
     {
+        z = Math.abs(z) & 255;
         var res = ciphB[z];
         swapper(res);
         return res;
@@ -173,14 +175,27 @@ function BasylEncryptor()
         ext = e;
     }
 
-    this.encryptString = function(word, pass, size, ext)
+    this.encryptString = function(word, pass, size, ext, mode_utf16)
     {
+        var mode_utf16 = typeof mode_utf16 !== 'undefined' ?  mode_utf16 : false;
+
         var arr = [];
         for(var i = 0; i < word.length; i++)
-            arr.push(word.charCodeAt(i));
+        {
+            if(!mode_utf16)
+            {
+                arr.push(word.charCodeAt(i));
+            }
+            else
+            {
+                arr.push((word.charCodeAt(i) >> 8) & 255);
+                arr.push((word.charCodeAt(i) & 255));
+            }
+        }
         return this.encrypt(arr, pass, size, ext);
     }
 
+    //Note, arrays must have values only between 0 up to 255.
     this.encrypt = function(arr, pass, size, ext)
     {
         n = [];
@@ -207,13 +222,22 @@ function BasylEncryptor()
         return result;
     }
 
-    this.decryptString = function(encryptedArray, pass, size, ext)
+    this.decryptString = function(encryptedArray, pass, size, ext, mode_utf16)
     {
+        var mode_utf16 = typeof mode_utf16 !== 'undefined' ?  mode_utf16 : false;
+
         var arr = this.decrypt(encryptedArray, pass, size, ext);
         var result = "";
         for(var i = 0; i < arr.length; i++)
         {
-            result += String.fromCharCode(arr[i]);
+            if(!mode_utf16)
+            {
+                result += String.fromCharCode(arr[i]);
+            }
+            else
+            {
+                result += String.fromCharCode((arr[i++] << 8) | arr[i]);
+            }
         }
         return result;
     }
