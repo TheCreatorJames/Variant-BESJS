@@ -3,8 +3,10 @@
 //This is a sifting algorithm.
 
 //Added the cipher element
-function BasylEncryptor()
+function BasylEncryptor(prevent_buffer)
 {
+    var prevent_buffer = typeof prevent_buffer !== 'undefined' ?  prevent_buffer : false;
+
     var saltLength = 16;
 
     var ov = 0;
@@ -206,17 +208,36 @@ function BasylEncryptor()
 
         generate(null, pass, false);
 
-        var result = [];
+        var bufferFound = typeof Buffer !== 'undefined' && !prevent_buffer;
+
+
+        var result = null;
+
+        if(bufferFound)
+        {
+            result = new Buffer(saltLength + arr.length);
+        }
+        else
+        {
+            result = [];
+        }
+
 
         for (var i = 0; i < saltLength; i++)
         {
-            result.push(salt[i]);
+            if(!bufferFound)
+                result.push(salt[i]);
+            else
+                result[i] = salt[i];
         }
 
         for (i = 0; i < arr.length; i++)
         {
             if (pos >= size) Recycle();
-            result.push(EncryptRight(arr[i]));
+            if(!bufferFound)
+                result.push(EncryptRight(arr[i]));
+            else
+                result[i + saltLength] = EncryptRight(arr[i]);
         }
 
         return result;
@@ -250,11 +271,26 @@ function BasylEncryptor()
         setExt(ext);
         setSize(size);
         generate(encryptedArray, pass, true);
-        var result = [];
+
+        var bufferFound = typeof Buffer !== 'undefined' && !prevent_buffer;
+
+        if(bufferFound)
+        {
+            result = new Buffer(encryptedArray.length - saltLength);
+        }
+        else
+        {
+            result = [];
+        }
+
         for (var i = saltLength; i < encryptedArray.length; i++)
         {
             if (pos >= size) Recycle();
-            result.push(EncryptLeft(encryptedArray[i]));
+            if(bufferFound)
+                result.push(EncryptLeft(encryptedArray[i]));
+            else
+                result[i - saltLength] = EncryptLeft(encryptedArray[i]);
+
         }
 
         return result;
