@@ -44,3 +44,15 @@ pass - what to encrypt/decrypt with.
 size - the size of the generation array. I recommend something above (10*1024). It can be any number you wish though.
 
 extra - A constant extra password string to encrypt with. Usually something simple, like "Salty". Just adds some extra entropic uniqueness to your generation scheme.
+
+### How to use this in Node.js
+
+Download this project folder, stick it in the "node_modules" folder for your node process.
+
+Add the following to your code:
+```js
+var BasylEncryptor = require("Variant-BESJS").BasylEncryptor();
+var encryption = new BasylEncryptor();
+```
+
+The rest of the code will be the same as above.
