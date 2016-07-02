@@ -58,14 +58,6 @@ function BasylEncryptor()
             if (!(i == 4 || i == 8)) siftForward();
         }
 
-        //No real point to this section, in fact, it decreases entropy.
-        /*var sum = 0;
-        for (var i = 0; i < size; i++)
-        {
-            n[i] %= 256;
-            sum += n[i];
-        }*/
-
         pos = 0;
 
         for (var t = 0; t < 10; t++)
@@ -74,7 +66,9 @@ function BasylEncryptor()
                 EncryptRight(z);
                 EncryptLeft(z);
                 EncryptRight(salt[z % saltLength]);
-            }         pos = 0;
+            }
+
+        Recycle();
     }
 
     function siftForward()
@@ -157,11 +151,6 @@ function BasylEncryptor()
         siftBackward();
         randSwap();
         siftBackward();
-
-        for (var i = 0; i < size; i++)
-        {
-            n[i] %= 256;
-        }
 
         pos = 0;
     }
