@@ -286,7 +286,7 @@ function BasylEncryptor(prevent_buffer)
         for (var i = saltLength; i < encryptedArray.length; i++)
         {
             if (pos >= size) Recycle();
-            if(bufferFound)
+            if(!bufferFound)
                 result.push(EncryptLeft(encryptedArray[i]));
             else
                 result[i - saltLength] = EncryptLeft(encryptedArray[i]);
