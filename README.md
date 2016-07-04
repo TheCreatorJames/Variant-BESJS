@@ -1,6 +1,9 @@
 # Variant-BESJS
 This is a lightweight encryption algorithm for the web browser written in JavaScript. It is based off of BES but has a few features added to allow it to be faster and smaller. It will encrypt strings in a shuffling cipher, and give you a string to decrypt.
 
+Rather than using the original XOR-based encryption present in BES, this encryption algorithm uses internal shuffle ciphers for a more resilient design.
+Quite a few ideas were taken from this project and added to the desktop BES library (like cipher mode, and the PRNG shuffle steps, for faster, much less predictable/reversible entropy accumulation).
+
 ### Why a variant?
 To make it lightweight and efficient. You usually aren't encrypting massive amounts of data in JavaScript, so I thought I'd make it more... slim.
 
@@ -17,8 +20,6 @@ Try the example index.html. There are only two steps, and two commands.
 
 ```js
 var encryption =  new BasylEncryptor();
-
-
 ```
 
 2) Encrypt or Decrypt
@@ -72,7 +73,7 @@ var encryption = new BasylEncryptor();
 
 The rest of the code will be the same as above.
 
-You may also alternatively place the "bes.js" or "bes.min.js" in the same folder, and load it in like so: 
+You may also alternatively place the "bes.js" or "bes.min.js" in the same folder, and load it in like so:
 ```js
 var BasylEncryptor = require("./bes.js");
 var encryption = new BasylEncryptor();
