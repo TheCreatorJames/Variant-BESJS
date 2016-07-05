@@ -21,7 +21,7 @@ function activate(mode)
 
 		document.getElementById("output").value = b64encoded;
 	}
-	else if(mode) 
+	else  
 	{
 		var u8_2 = new Uint8Array(atob(word).split("").map(function(c) { return c.charCodeAt(0); }));
 	
