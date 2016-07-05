@@ -1,33 +1,37 @@
-<script type="text/javascript" src="BES.min.js"></script>
+<script type="text/javascript" src="bes.min.js"></script>
+<textarea rows="25" cols="100" id="output"></textarea>
+<br><label>Password </label> <input id="pass">
+<br><button onclick="encrypt()">Encrypt</button><button onclick="decrypt()">Decrypt</button>
 <script>
 
 
-
-var mode = prompt("(E)ncrypt or (D)ecrypt?");
-
-if(mode == "E")
+function activate(mode)
 {
+	var word = document.getElementById("output").value;
+	var pass= document.getElementById("pass").value;
+	var size = 10 * 1024;
+	var extra = "Salty";
+	
+	if(mode)
+	{
+		var arr = new BasylEncryptor().encryptString(word, pass, size, extra);
 
-var word = prompt("Phrase to Encrypt?");
-var pass= prompt("Password to encrypt with?");
-var size = 10 * 1024;
-var extra = "Salty";
+		var u8 = new Uint8Array(arr);
+		var b64encoded = btoa(String.fromCharCode.apply(null, u8));
 
-document.write(new BasylEncryptor().encryptString(word, pass, size, extra));
-
-
+		document.getElementById("output").value = b64encoded;
+	}
+	else if(mode) 
+	{
+		var u8_2 = new Uint8Array(atob(word).split("").map(function(c) { return c.charCodeAt(0); }));
+	
+		var decrypted_phrase = new BasylEncryptor().decryptString(u8_2, pass, size, extra);
+  		//decrypted_phrase = decrypted_phrase.replace(/[<]/g, "&lt;").replace(/[>]/g, "&gt;");
+		document.getElementById("output").value = decrypted_phrase;
+	}
 }
-else if(mode == "D") 	 //yes, I could make it 'shorter' by creating a variable or ternary operator to switch out encrypt with decrypt
-            //or even use a .replace, but this is more readable for an example.
-{
-  var word = prompt("Phrase to Decrypt?");
-  var pass = prompt("Password to decrypt with?");
-  var size = 10 * 1024;
-  var extra = "Salty";
 
-  //insecure code, but this is an example of the encryption, not necessarily something to prevent injection.
-  document.write(new BasylEncryptor().decryptString(eval("[" +word + "]"), pass, size, extra));
-}
-
+function encrypt() { activate(true) }
+function decrypt() { activate(false) }
 
 </script>
